@@ -36,7 +36,7 @@
 10. All data should now be populated in postgres.  Open pgAdmin to veiw the postgres tables.  These tables can be found by navigating to Servers/PostgreSQL/Databases /ojdevictions_2020 (or ojdevictions_2021)/Schemas/Tables; you should see 6 tables, case-overviews, case-parties, etc.
 11. Note that if you do not want to download court documents from the scrape, turn off the FilesPipeline on line 84 of the settings.py file by preceding it with a #. 
 12. Next, process the data and create a flat_file for the project using the r script in the R_dataCleaning directory of the project.  You will only need to run flat_file_evictions.R - but keep the other file (data_cleaning_evictions.R) it contains essential functions.
-13. Run flat_file_evictions.R either in RStudio or in the command line by finding the path for Rscript.exe and path to flat_file_evictions.R.  Something like this, depending on your local paths to R and the project:
+13. Run flat_file_evictions.R either in [RStudio](https://www.rstudio.com/products/rstudio/download/#download) ([go here to set up R](https://cran.r-project.org/)) or in the command line by finding the path for Rscript.exe and path to flat_file_evictions.R.  Something like this, depending on your local paths to R and the project:
 ```
 C:\User> "C:\\Program Files\\R\\R-4.0.5\\bin\\Rscript.exe" "C:\\Project\\ojd-eviction-scraping\\R_dataCleaning\\flat_file_evictions.R"  
 ```

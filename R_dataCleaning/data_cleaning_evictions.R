@@ -138,10 +138,10 @@ exportFlatFileCSV <- function() {
 #execute
 # exportFlatFileCSV()
 
-overviews <- getCaseOverviews()
-overviews$date2 <- as.Date(overviews$date, format, format = "%m/%d/%Y")
-since_pan <- overviews %>% 
-  filter(date2 >= "2020/03/22")
+# overviews <- getCaseOverviews()
+# overviews$date2 <- as.Date(overviews$date, format, format = "%m/%d/%Y")
+# since_pan <- overviews %>%
+#   filter(date2 >= "2020/03/22")
 
 # case_overviews <- getCaseOverviews()
 # case_parties <- getCaseParties()
