@@ -12,7 +12,7 @@
 	'password': 'admin',   
 	'database': 'ojdevictions_2020' }
 	``` 
-	5. Also in settings, set FILES_STORE to whatever directory you want to store downloaded documents - make sure to reset this location separately for each year.  In this case the files will be stored in the following directory within the project directory.
+	5. In settings, set FILES_STORE to whatever directory you want to store downloaded documents - make sure to reset this location separately for each year.  In this case the files will be stored in the following directory within the project directory.
 	```
 	FILES_STORE = r'CaseFile_Downloads\2020'
 	```
