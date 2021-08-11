@@ -1,5 +1,5 @@
 1. Manual scrape operation
-	1. Get a Python IDE - I suggest Pycharm.
+	1. Get a Python IDE - I suggest [Pycharm](https://www.jetbrains.com/pycharm/).
 	2. Open odj-eviction-scraping-master project in Pycharm.
 	3. The scraper is run separately for each year 2020 and 2021.
 	4. In the settings file, make sure the postgres database is set to ojdevictions_2020 (see below).   
@@ -38,7 +38,7 @@
 12. Next, process the data and create a flat_file for the project using the r script in the R_dataCleaning directory of the project.  You will only need to run flat_file_evictions.R - but keep the other file (data_cleaning_evictions.R) it contains essential functions.
 13. Run flat_file_evictions.R either in RStudio or in the command line by finding the path for Rscript.exe and path to flat_file_evictions.R.  Something like this, depending on your local paths to R and the project:
 ```
-C:\User> "C:\\Program Files\\R\\R-4.0.5\\bin\\Rscript.exe" "C:\\Project\\odj-eviction-scraping-master\\R_dataCleaning\\flat_file_evictions.R"  
+C:\User> "C:\\Program Files\\R\\R-4.0.5\\bin\\Rscript.exe" "C:\\Project\\ojd-eviction-scraping\\R_dataCleaning\\flat_file_evictions.R"  
 ```
 13. flat_file_evictions.R will create a folder in the same directory as the file called full_scrape_m_d_Y (m_d_Y will be populated by the date).  In this new folder you will find all the tables including the flat_file which will be sent to the R Shiny Web App.
 
