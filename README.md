@@ -42,19 +42,5 @@ C:\User> "C:\\Program Files\\R\\R-4.0.5\\bin\\Rscript.exe" "C:\\Project\\ojd-evi
 ```
 13. flat_file_evictions.R will create a folder in the same directory as the file called full_scrape_m_d_Y (m_d_Y will be populated by the date).  In this new folder you will find all the tables including the flat_file which will be sent to the R Shiny Web App.
 
-```mermaid
-graph TD
-
-A(ojd-eviction-scraping-master)
-B(CaseFile_Downloads Folder)
-C[(postgres database)]
-D(full_scrape_m_d_Y)
-E(shiny app)
-
-A -- trid.exe --> B  
-A --> C
-C -- flat_file_evictions.R --> D
-D -- flat_file.rds --> E
-```
-	
-	
+Scrape Process Diagram:
+![Scrape Process](Images/mermaid-diagram-20210811105426.png)
