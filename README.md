@@ -1,6 +1,6 @@
 1. Manual scrape operation
 	1. Get a Python IDE - I suggest [Pycharm](https://www.jetbrains.com/pycharm/).
-	2. Open odj-eviction-scraping-master project in Pycharm.
+	2. Open ojd-eviction-scraping project in Pycharm.
 	3. The scraper is run separately for each year 2020 and 2021.
 	4. In the settings file, make sure the postgres database is set to ojdevictions_2020 (see below).   
 	```
