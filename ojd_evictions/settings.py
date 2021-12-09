@@ -9,6 +9,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from datetime import date, timedelta
+
+today = date.today()
+
 BOT_NAME = 'ojd_evictions'
 
 SPIDER_MODULES = ['ojd_evictions.spiders']
@@ -34,10 +38,11 @@ DATABASE = {
     'port': '5432',
     'username': 'postgres',
     'password': 'admin',
-    'database': 'ojdevictions_2021'
+    # 'database': 'ojdevictions_2014B'
+    'database': "ojdevictions_2021_" + today.strftime("%Y%m%d")
 }
 
-FILES_STORE = r'CaseFile_Downloads\2021'
+# FILES_STORE = r'CaseFile_Downloads\2021'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 CONCURRENT_REQUESTS = 1
