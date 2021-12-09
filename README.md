@@ -43,6 +43,12 @@ path2script = "R_dataCleaning/flat_file_evictions.R"
 subprocess.call([command, path2script], shell=True)
 ```
 
+
+
+
+
+Other notes on the scraper operation.
+
 2. Manual scrape operation
     1. Get a Python IDE - I suggest [Pycharm](https://www.jetbrains.com/pycharm/).
     2. Open ojd-eviction-scraping project in Pycharm.
