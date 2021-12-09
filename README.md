@@ -43,9 +43,7 @@ path2script = "R_dataCleaning/flat_file_evictions.R"
 subprocess.call([command, path2script], shell=True)
 ```
 
-
-
-
+______________________
 
 Other notes on the scraper operation.
 
