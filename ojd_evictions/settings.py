@@ -38,8 +38,7 @@ DATABASE = {
     'port': '5432',
     'username': 'postgres',
     'password': 'admin',
-    # 'database': 'ojdevictions_2014B'
-    'database': "ojdevictions_2021_" + today.strftime("%Y%m%d")
+    'database': "ojdevictions_" + today.strftime("%Y") + "_" + today.strftime("%Y%m%d")
 }
 
 # FILES_STORE = r'CaseFile_Downloads\2021'
