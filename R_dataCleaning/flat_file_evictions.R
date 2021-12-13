@@ -133,6 +133,13 @@ getDefendantInfo <- function() {
     return()
 }
 
+getAgent <- function() {
+  getCaseParties() %>%
+    filter(party_side == "Agent") %>%
+    group_by(case_code) %>%
+    summarize(Agent = paste(name, collapse = "; ")) %>%
+    return()
+}
 
 # setwd(dirname(getActiveDocumentContext()$path))
 
@@ -250,7 +257,8 @@ makeFlatFile <- function() {
   addMoratoriumVars() %>% 
     select(case_code, style, date, Oregon_Moratorium, Multnomah_Moratorium, status, location) %>% 
     full_join(getPlaintifNames() %>% select(case_code, plaintiff_name), by = 'case_code') %>% 
-    full_join(getDefendantInfo() %>% select(case_code, defendant_names, defendant_addr), by = 'case_code') %>% 
+    full_join(getDefendantInfo() %>% select(case_code, defendant_names, defendant_addr), by = 'case_code') %>%
+    full_join(getAgent() %>% select(case_code, Agent)) %>%
     full_join(createJudgmentDummies() %>% select(case_code, Judgment_General, 
                                        Judgment_Creates_Lien, 
                                        Judgment_Dismissal), by = 'case_code') %>% 

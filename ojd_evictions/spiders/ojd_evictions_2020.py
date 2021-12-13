@@ -277,6 +277,24 @@ class OJDEvictions(scrapy.Spider):
 
 			yield loader.load_item()
 
+		# iterate over each agent
+		for agent in select.xpath(
+				"//table[{table_ind}]/tr[./th[1]/text() = 'Agent']".format(table_ind=starting_table_ind)):
+			loader = ItemLoader(CasePartyItem(), agent)
+
+			loader.default_output_processor = Join()
+
+			loader.add_value('party_side', 'Agent')
+			loader.add_value('case_code', case_code)
+			loader.add_xpath('name', "string(.//th[2])")
+			loader.add_xpath('addr', ".//following-sibling::tr[1]/td/text()")
+			loader.add_xpath('removed', ".//following-sibling::tr[1]/td/nobr[contains(./text(),'Removed')]/text()",
+							 re="Removed:\\s(.*)$")  # sometimes included, use regexp to clean
+			loader.add_xpath('others',
+							 ".//following-sibling::tr[1]/td/nobr[contains(./text(),'Et Al')]/text()")  # sometimes included
+
+			yield loader.load_item()
+
 		# iterate over each plaintiff
 		for plaintiff in select.xpath("//table[{table_ind}]/tr[./th[1]/text() = 'Plaintiff']".format(table_ind = starting_table_ind)):
 			loader = ItemLoader(CasePartyItem(), plaintiff)
