@@ -22,11 +22,11 @@ con.close()
 
 cmd = "scrapy"
 arg1 = "crawl"
-arg2 = "ojd-evictions-2021"
+arg2 = "ojd-evictions-2020"
 subprocess.call([cmd, arg1, arg2], shell = True)
 
 # run r script to get tables and write to csv
-command = "C:\\Program Files\\R\\R-4.0.5\\bin\\Rscript.exe"
+command = "C:\\Program Files\\R\\R-4.1.2\\bin\\Rscript.exe"
 path2script = "R_dataCleaning/flat_file_evictions.R"
 subprocess.call([command, path2script], shell=True)
 

@@ -38,7 +38,7 @@ DATABASE = {
     'port': '5432',
     'username': 'postgres',
     'password': 'admin',
-    'database': "ojdevictions_2021"
+    'database': "ojdevictions_2020"
     # 'database': "ojdevictions_" + today.strftime("%Y") + "_" + today.strftime("%Y%m%d")
 }
 

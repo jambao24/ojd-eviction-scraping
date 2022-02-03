@@ -25,7 +25,7 @@ arg1 = "crawl"
 arg2 = "ojd-evictions-2022"
 subprocess.call([cmd, arg1, arg2], shell = True)
 
-# run r script to get tables and write to csv
+# run r script to get tables and write to csv (need to change address of R script on local machine)
 command = "C:\\Program Files\\R\\R-4.0.5\\bin\\Rscript.exe"
 path2script = "R_dataCleaning/flat_file_evictions.R"
 subprocess.call([command, path2script], shell=True)

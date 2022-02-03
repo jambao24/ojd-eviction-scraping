@@ -29,7 +29,6 @@ class OJDEvictions(scrapy.Spider):
 	url_login = "https://publicaccess.courts.oregon.gov/PublicAccessLogin/login.aspx"
 	url_case_search = "https://publicaccess.courts.oregon.gov/PublicAccessLogin/Search.aspx?ID=200"
 	url_case_det_base = "https://publicaccess.courts.oregon.gov/PublicAccessLogin/"
-
 	login_cookie = {
 		"BIGipServerOdy_Prod~ODY_Prod_PA_pool_443": "3002871306.47873.0000"
 	}
