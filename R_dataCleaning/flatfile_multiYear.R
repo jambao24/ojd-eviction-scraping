@@ -13,7 +13,7 @@ today <- Sys.Date()
 today <- format(today, format = "%Y%m%d")
 #today <- "20211206"
 
-getDates <- c("2020")
+getDates <- c("2020", "2021", "2022")
 
 getCaseOverviews <- function(i){
   db_name <- paste("ojdevictions", i, sep = "_")
@@ -297,3 +297,30 @@ write.csv(makeFlatFile(), "flat_file.csv")
 
 library(dplyr)
 flatfile <- makeFlatFile()
+
+
+# 03/21- added CountyDataACS CSV generator code from Devin
+CountyDataACS <- readRDS("CountyDataACS.rds")
+makeFlatFile() %>%
+  group_by(location) %>%
+  summarize(Filings = n(), Dismissals = sum(na.omit(Judgment_Dismissal) == 1),
+            `Judgments to Evict` = sum(na.omit(Judgment_General) == 1),
+            `Open Cases` = sum(status == "Open"),
+            `Landlord has Lawyer` = sum(na.omit(landlord_has_lawyer) == 1),
+            `Tenant has Lawyer` = sum(na.omit(tenant_has_lawyer) == 1)) %>%
+  add_row(location = "Oregon",
+          Filings = sum(.$Filings),
+          Dismissals = sum(.$Dismissals),
+          `Judgments to Evict` = sum(.$`Judgments to Evict`),
+          `Open Cases` = sum(.$`Open Cases`),
+          `Landlord has Lawyer` = sum(.$`Landlord has Lawyer`),
+          `Tenant has Lawyer` = sum(.$`Tenant has Lawyer`)) %>%
+  inner_join(CountyDataACS %>% select(NAME, Renter_Occupied, pPov, pNotWhite, pRenter),
+             by = c("location" = "NAME")) %>%
+  mutate(`Filings per 100 Rental Units` = round(Filings/(Renter_Occupied*.01), 3)) %>%
+  rename(`Percent POC` = pNotWhite,
+         `Percent Renter Occupied Units` = pRenter,
+         `Poverty Rate` = pPov,
+         Location = location,
+         `Number of Renter Occupied Units` = Renter_Occupied) %>%
+  write.csv(paste("G:/Shared drives/ojdevictions/ScrapeData/CountySummaries/CountySummary", format(Sys.Date(), "%Y.%m.%d"), ".csv", sep = ""))

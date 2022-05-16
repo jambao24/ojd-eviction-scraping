@@ -13,7 +13,7 @@ today = date.today()
 con = psycopg2.connect(database="postgres", user='postgres', password='admin', host='127.0.0.1', port= '5432')
 con.autocommit = True
 cur = con.cursor()
-name_Database =  "ojdevictions_2022_" + today.strftime("%Y%m%d")
+name_Database =  "ojdevictions_2022" + today.strftime("%Y%m%d")
 cur.execute("CREATE database "  + name_Database + ";")
 con.close()
 
