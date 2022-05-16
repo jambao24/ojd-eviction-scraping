@@ -42,7 +42,7 @@ judgments_0506 = judgments_0506[,-2]
 judgments_0506 = judgments_0506[,-5]
 #View(judgments_0506)
 # filter for rows that contain judgment dates within the current week (2022-05-01 through 2022-05-07)
-judgments_0506_curr = judgments_0506[judgments_0506$date > "2022-04-30" & judgments_0506$date < "2022-05-08" & judgments_0506$date <> null, ]
+judgments_0506_curr = judgments_0506[judgments_0506$date > "2022-04-30" & judgments_0506$date < "2022-05-08", ]
 judgments_0506_curr <- judgments_0506_curr[complete.cases(judgments_0506_curr),]
 
 # for Goal 1, we want cols A (case_code), H, AA, AE
@@ -227,8 +227,6 @@ this_week_evict_2 <- merge(judgments_0506_curr, part1_join_evict_not_match_1, by
 this_week_evict_3 <- merge(judgments_0506_curr, part1_join_evict_not_match_2, by.x = "case_code", by.y = "case_code")
 this_week_evict_all <- rbind(this_week_evict_1, this_week_evict_2, this_week_evict_3)
 
-table <- subset(FF_0506, select = location)
-distinct(table[c("location")])
-
+# generate list of how many values are in each this_week_evict table
 table(this_week_evict_1$location)
 table(this_week_evict_all$location)
