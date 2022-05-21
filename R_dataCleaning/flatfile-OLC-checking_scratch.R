@@ -9,41 +9,41 @@ library(plyr)
 # for Goal 1, we want cols B (case_code), M, N, O, R, S
 # for Goal 2, we want cols B (case_code). L, Q, V, U
 # for Goal 3, we want cols B (case_code), H
-FF_0506 <- read.csv("G:/Shared drives/ojdevictions/ScrapeData/full_scrape_20220506/flat_file.csv")
-FF_0506_1 = FF_0506[,-1]
-FF_0506_1 <- subset(FF_0506_1, select = -c(case_name:status))
-FF_0506_1 <- subset(FF_0506_1, select = -c(plaintiff_name:Agent))
-FF_0506_1 <- subset(FF_0506_1, select = -c(tenant_lawyer:landlord_lawyer))
-FF_0506_1 <- subset(FF_0506_1, select = -c(landlord_has_lawyer:zip))
-#View(FF_0506_1)
+FF_0514 <- read.csv("G:/Shared drives/ojdevictions/ScrapeData/full_scrape_20220514/flat_file.csv")
+FF_0514_1 = FF_0514[,-1]
+FF_0514_1 <- subset(FF_0514_1, select = -c(case_name:status))
+FF_0514_1 <- subset(FF_0514_1, select = -c(plaintiff_name:Agent))
+FF_0514_1 <- subset(FF_0514_1, select = -c(tenant_lawyer:landlord_lawyer))
+FF_0514_1 <- subset(FF_0514_1, select = -c(landlord_has_lawyer:zip))
+#View(FF_0514_1)
 
-FF_0506_2 = FF_0506[,-1]
-FF_0506_2 <- subset(FF_0506_2, select = -c(case_name:defendant_addr))
-FF_0506_2 <- subset(FF_0506_2, select = -c(Judgment_General:tenant_lawyer))
-FF_0506_2 <- subset(FF_0506_2, select = -c(FTA:FTAFirst))
-FF_0506_2 <- subset(FF_0506_2, select = -c(FTAFirstXJudgmentGeneral:zip))
-#View(FF_0506_2)
+FF_0514_2 = FF_0514[,-1]
+FF_0514_2 <- subset(FF_0514_2, select = -c(case_name:defendant_addr))
+FF_0514_2 <- subset(FF_0514_2, select = -c(Judgment_General:tenant_lawyer))
+FF_0514_2 <- subset(FF_0514_2, select = -c(FTA:FTAFirst))
+FF_0514_2 <- subset(FF_0514_2, select = -c(FTAFirstXJudgmentGeneral:zip))
+#View(FF_0514_2)
 
-FF_0506_3 = FF_0506[,-1]
-FF_0506_3 <- subset(FF_0506_3, select = -c(case_name:status))
-FF_0506_3 <- subset(FF_0506_3, select = -c(plaintiff_name:zip))
-#View(FF_0506_3)
+FF_0514_3 = FF_0514[,-1]
+FF_0514_3 <- subset(FF_0514_3, select = -c(case_name:status))
+FF_0514_3 <- subset(FF_0514_3, select = -c(plaintiff_name:zip))
+#View(FF_0514_3)
 
 # for Goal 3, we want col C (case_code), F (decision), G (judgment date)
-judgments_0506 <- read.csv("G:/Shared drives/ojdevictions/ScrapeData/full_scrape_20220506/judgments.csv")
+judgments_0514 <- read.csv("G:/Shared drives/ojdevictions/ScrapeData/full_scrape_20220514/judgments.csv")
 # https://www.youtube.com/watch?v=6inAoQddaj0
 # convert date column to Date data type
-judgments_0506$date <- as.Date(judgments_0506$date, format = '%m/%d/%Y')
+judgments_0514$date <- as.Date(judgments_0514$date, format = '%m/%d/%Y')
 # remove unwanted rows
-judgments_0506 = judgments_0506[,-1]
-judgments_0506 = judgments_0506[,-1]
-judgments_0506 = judgments_0506[,-2]
-judgments_0506 = judgments_0506[,-2]
-judgments_0506 = judgments_0506[,-5]
-#View(judgments_0506)
-# filter for rows that contain judgment dates within the current week (2022-05-01 through 2022-05-07)
-judgments_0506_curr = judgments_0506[judgments_0506$date > "2022-04-30" & judgments_0506$date < "2022-05-08", ]
-judgments_0506_curr <- judgments_0506_curr[complete.cases(judgments_0506_curr),]
+judgments_0514 = judgments_0514[,-1]
+judgments_0514 = judgments_0514[,-1]
+judgments_0514 = judgments_0514[,-2]
+judgments_0514 = judgments_0514[,-2]
+judgments_0514 = judgments_0514[,-5]
+#View(judgments_0514)
+# filter for rows that contain judgment dates within the current week (2022-05-08 through 2022-05-14)
+judgments_0514_curr = judgments_0514[judgments_0514$date > "2022-05-07" & judgments_0514$date < "2022-05-15", ]
+judgments_0514_curr <- judgments_0514_curr[complete.cases(judgments_0514_curr),]
 
 # for Goal 1, we want cols A (case_code), H, AA, AE
 # for Goal 2, we want cols A (case_code), W, V
@@ -66,9 +66,9 @@ OLC_updated_2 <- subset(OLC_updated_2, select = -c(SB278_setover:Notes))
 # https://rforjournalists.com/2018/04/10/sql-joins-merges-r/
 
 
-part1_join <- merge(FF_0506_1, OLC_updated_1, by.x = "case_code", by.y = "Case #")
-part2_join <- merge(FF_0506_2, OLC_updated_2, by.x = "case_code", by.y = "Case #")
-part3_join <- merge(FF_0506_3, judgments_0506, by = "case_code")
+part1_join <- merge(FF_0514_1, OLC_updated_1, by.x = "case_code", by.y = "Case #")
+part2_join <- merge(FF_0514_2, OLC_updated_2, by.x = "case_code", by.y = "Case #")
+part3_join <- merge(FF_0514_3, judgments_0514, by = "case_code")
 
 # number of rows in part1_join
 nrow(part1_join)
@@ -218,15 +218,69 @@ part2_join_lawyer_rep_match <- sqldf("select * from part2_join
 nrow(part2_join_lawyer_rep_match)
 nrow(part2_join)
 
+# filter FF data frame for cases where lawyer rep data does not match OLC
+part2_join_mismatch <- sqldf('select * from part2_join except select * from part2_join_lawyer_rep_match')
+part2_join_mismatch_both <- sqldf("select * from part2_join_mismatch 
+                                                where 
+                                                [landlord_has_lawyer] <> [LL_rep]
+                                                AND 
+                                                [tenant_has_lawyer] <> [Ten_rep]")
+part2_join_mismatch_remaining <- sqldf('select * from part2_join_mismatch except select * from part2_join_mismatch_both')
+part2_join_mismatch_ldlrd <- sqldf('select * from part2_join_mismatch_remaining
+                                                where [landlord_has_lawyer] <> [LL_rep]')
+part2_join_mismatch_tnt <- sqldf('select * from part2_join_mismatch_remaining
+                                                where [tenant_has_lawyer] <> [Ten_rep]')
+nrow(part2_join_mismatch)
+nrow(part2_join_mismatch_both)
+nrow(part2_join_mismatch_ldlrd)
+nrow(part2_join_mismatch_tnt)
+
+
 
 
 # determine how many eviction rulings occurred this week in each county
-# for this we merge the judgments_0506_curr dataframe with the part1_join_evict_match dataframe (confirmed evictions)
-this_week_evict_1 <- merge(judgments_0506_curr, part1_join_evict_match, by.x = "case_code", by.y = "case_code")
-this_week_evict_2 <- merge(judgments_0506_curr, part1_join_evict_not_match_1, by.x = "case_code", by.y = "case_code")
-this_week_evict_3 <- merge(judgments_0506_curr, part1_join_evict_not_match_2, by.x = "case_code", by.y = "case_code")
+# for this we merge the judgments_0514_curr dataframe with the part1_join_evict_match dataframe (confirmed evictions)
+this_week_evict_1 <- merge(judgments_0514_curr, part1_join_evict_match, by.x = "case_code", by.y = "case_code")
+this_week_evict_2 <- merge(judgments_0514_curr, part1_join_evict_not_match_1, by.x = "case_code", by.y = "case_code")
+this_week_evict_3 <- merge(judgments_0514_curr, part1_join_evict_not_match_2, by.x = "case_code", by.y = "case_code")
 this_week_evict_all <- rbind(this_week_evict_1, this_week_evict_2, this_week_evict_3)
 
 # generate list of how many values are in each this_week_evict table
-table(this_week_evict_1$location)
-table(this_week_evict_all$location)
+temp1 <- data.frame(table(this_week_evict_1$location))
+temp2 <- data.frame(table(this_week_evict_all$location))
+
+# create template CSV file for tabulating weekly eviction counts
+CountyDataACS <- readRDS("CountyDataACS.rds")
+CountyWeekEvict_base <- subset(CountyDataACS, select = -c(AIAN :pOwner))
+colnames(CountyWeekEvict_base)[colnames(CountyWeekEvict_base) == "summary_est"] <- "Count"
+CountyWeekEvict_base$Count <- 0
+CountyWeekEvict_base$Count_full <- 0
+
+# create CSV file for this week's scrape
+CountyWeekEvict_curr <- CountyWeekEvict_base
+
+# iterate through the lists of how many values are in each this_week_evict table
+for (i in 1:nrow(CountyWeekEvict_curr)) {
+  # both evict_1 (FF and OLC match) and evict_all (all eviction records) have same # of rows
+  for (j in 1:nrow(temp1)) {
+    # copy County # of evicts (FF and OLC match)
+    if (temp1$Var1[j] == CountyWeekEvict_curr$NAME[i]) {
+      CountyWeekEvict_curr$Count[i] <- temp1$Freq[j]
+    }
+    # copy County # of evicts (all eviction records)
+    if (temp2$Var1[j] == CountyWeekEvict_curr$NAME[i]) {
+      CountyWeekEvict_curr$Count_full[i] <- temp2$Freq[j]
+    }
+  }
+}
+CountyWeekEvict_curr$Count[nrow(CountyWeekEvict_curr)] <- sum(temp1$Freq)
+CountyWeekEvict_curr$Count_full[nrow(CountyWeekEvict_curr)] <- sum(temp2$Freq)
+write.table(CountyWeekEvict_curr, file="G:/Shared drives/ojdevictions/FF_vs_OLC_accuracy/CountyWeeklyEvict_0514.csv", row.names=F, sep=",")
+
+
+#write.table(CountyWeekEvict_base, file="G:/Shared drives/ojdevictions/FF_vs_OLC_accuracy/CountyWeeklyEvict_template.csv", row.names=F, sep=",")
+
+
+write.table(part1_join_evict_not_match_2, file="G:/Shared drives/ojdevictions/FF_vs_OLC_accuracy/0514_eviction_false_neg.csv", row.names=F, sep=",")
+write.table(part1_join_dismiss_not_match_1, file="G:/Shared drives/ojdevictions/FF_vs_OLC_accuracy/0514_dismissal_false_pos.csv", row.names=F, sep=",")
+write.table(part1_join_dismiss_not_match_2, file="G:/Shared drives/ojdevictions/FF_vs_OLC_accuracy/0514_dismissal_false_neg.csv", row.names=F, sep=",")
